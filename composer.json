@@ -1,0 +1,41 @@
+{
+	"name" : "appserver-io-psr/persistencecontainerprotocol",
+	"description" : "PSR, that defines a native persistence container protocol",
+	"homepage" : "https://github.com/appserver-io-psr/persistencecontainerprotocol",
+	"license" : "OSL-3.0",
+	"authors" : [{
+			"name" : "Tim Wagner",
+			"email" : "tw@appserver.io",
+			"homepage" : "https://github.com/wagnert",
+			"role" : "Developer"
+		}
+	],
+	"require" : {
+		"php" : ">=5.4.0"
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : "3.7.*",
+		"appserver-io/build" : "0.1.*"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"AppserverIo\\Psr\\PersistenceContainerProtocol" : [
+				"src/",
+				"tests/"
+			]
+		}
+	},
+	"config" : {
+		"github-oauth" : {
+			"github.com" : "604a3b5943228e434a5b52c2ba3cf72286d30db9"
+		}
+	},
+	"support" : {
+		"email" : "tw@appserver.io",
+		"issues" : "https://github.com/appserver-io-psr/persistencecontainerprotocol/issues",
+		"source" : "https://github.com/appserver-io-psr/persistencecontainerprotocol"
+	},
+	"keywords" : [
+		"persistence container protocol doctrine"
+	]
+}
