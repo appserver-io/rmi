@@ -91,13 +91,34 @@ interface BeanContext
     public function attach($instance, $sessionId = null);
 
     /**
-     * Returns a reflection class intance for the passed class name.
+     * Returns a new reflection class intance for the passed class name.
      *
-     * @param string $className The class name to return the reflection instance for
+     * @param string $className The class name to return the reflection class instance for
      *
-     * @return \ReflectionClass The reflection instance
+     * @return \AppserverIo\Lang\Reflection\ReflectionClass The reflection instance
      */
     public function newReflectionClass($className);
+
+    /**
+     * Returns a reflection class intance for the passed class name.
+     *
+     * @param string $className The class name to return the reflection class instance for
+     *
+     * @return \AppserverIo\Lang\Reflection\ReflectionClass The reflection instance
+     * @see \DependencyInjectionContainer\Interfaces\ProviderInterface::getReflectionClass()
+     */
+    public function getReflectionClass($className);
+
+    /**
+     * Returns a reflection class intance for the passed class name.
+     *
+     * @param object $instance The instance to return the reflection class instance for
+     *
+     * @return \AppserverIo\Lang\Reflection\ReflectionClass The reflection instance
+     * @see \DependencyInjectionContainer\Interfaces\ProviderInterface::newReflectionClass()
+     * @see \DependencyInjectionContainer\Interfaces\ProviderInterface::getReflectionClass()
+     */
+    public function getReflectionClassForObject($instance);
 
     /**
      * Returns a new instance of the passed class name.
