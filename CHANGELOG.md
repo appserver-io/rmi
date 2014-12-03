@@ -1,3 +1,13 @@
+# Version 0.2.8
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Add getReflectionClass() + getReflectionClassForObject() for object
+
 # Version 0.2.7
 
 ## Bugfixes
