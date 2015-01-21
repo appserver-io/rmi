@@ -1,3 +1,15 @@
+# Version 0.2.9
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Add dependency to appserver-io-psr/epb package
+* Move interfaces ResourceLocator, ServiceContext, ServiceExecutor, ServiceProvider, ServiceResourceLocator + TimerServiceContext from appserver-io/appserver package
+* Move exceptions InvalidBeanTypeException + ServiceAlreadyRegisteredException from appserver-io/appserver package
+
 # Version 0.2.8
 
 ## Bugfixes
