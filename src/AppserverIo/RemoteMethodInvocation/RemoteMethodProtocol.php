@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AppserverIo\Psr\PersistenceContainerProtocol\RemoteMethodProtocol
+ * AppserverIo\RemoteMethodInvocation\RemoteMethodProtocol
  *
  * NOTICE OF LICENSE
  *
@@ -11,17 +11,16 @@
  *
  * PHP version 5
  *
- * @category   Appserver
- * @package    Psr
- * @subpackage PersistenceContainerProtocol
- * @author     Tim Wagner <tw@appserver.io>
- * @copyright  2014 TechDivision GmbH <info@appserver.io>
- * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
- * @link       https://github.com/appserver-io-psr/persistencecontainerprotocol
- * @link       http://www.appserver.io
+ * @category  Library
+ * @package   Rmi
+ * @author    Tim Wagner <tw@appserver.io>
+ * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link      https://github.com/appserver-io/rmi
+ * @link      http://www.appserver.io
  */
 
-namespace AppserverIo\Psr\PersistenceContainerProtocol;
+namespace AppserverIo\RemoteMethodInvocation;
 
 /**
  * This is a parser for a native persistence container remote method call.
@@ -36,14 +35,13 @@ namespace AppserverIo\Psr\PersistenceContainerProtocol;
  * INVOKE 12 RMC/1.0\r\n
  * czoxOiIxIjs=\r\n
  *
- * @category   Appserver
- * @package    Psr
- * @subpackage PersistenceContainerProtocol
- * @author     Tim Wagner <tw@appserver.io>
- * @copyright  2014 TechDivision GmbH <info@appserver.io>
- * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
- * @link       https://github.com/appserver-io-psr/persistencecontainerprotocol
- * @link       http://www.appserver.io
+ * @category  Library
+ * @package   Rmi
+ * @author    Tim Wagner <tw@appserver.io>
+ * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link      https://github.com/appserver-io/rmi
+ * @link      http://www.appserver.io
  */
 class RemoteMethodProtocol
 {

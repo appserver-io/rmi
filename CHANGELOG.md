@@ -1,3 +1,14 @@
+# Version 0.3.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Move interfaces to appserver-io-psr/epb package
+* Rename package to appserver-io/rmi
+
 # Version 0.2.9
 
 ## Bugfixes
