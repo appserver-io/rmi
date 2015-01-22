@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AppserverIo\Psr\PersistenceContainerProtocol\RemoteMethodCall
+ * AppserverIo\RemoteMethodInvocation\RemoteMethodCall
  *
  * NOTICE OF LICENSE
  *
@@ -11,29 +11,27 @@
  *
  * PHP version 5
  *
- * @category   Appserver
- * @package    Psr
- * @subpackage PersistenceContainerProtocol
- * @author     Tim Wagner <tw@appserver.io>
- * @copyright  2014 TechDivision GmbH <info@appserver.io>
- * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
- * @link       https://github.com/appserver-io-psr/persistencecontainerprotocol
- * @link       http://www.appserver.io
+ * @category  Library
+ * @package   Rmi
+ * @author    Tim Wagner <tw@appserver.io>
+ * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link      https://github.com/appserver-io/rmi
+ * @link      http://www.appserver.io
  */
 
-namespace AppserverIo\Psr\PersistenceContainerProtocol;
+namespace AppserverIo\RemoteMethodInvocation;
 
 /**
- * Abstract base class of the Maps.
+ * The remote method call implemenation.
  *
- * @category   Appserver
- * @package    Psr
- * @subpackage PersistenceContainerProtocol
- * @author     Tim Wagner <tw@appserver.io>
- * @copyright  2014 TechDivision GmbH <info@appserver.io>
- * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
- * @link       https://github.com/appserver-io-psr/persistencecontainerprotocol
- * @link       http://www.appserver.io
+ * @category  Library
+ * @package   Rmi
+ * @author    Tim Wagner <tw@appserver.io>
+ * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link      https://github.com/appserver-io/rmi
+ * @link      http://www.appserver.io
  */
 class RemoteMethodCall implements RemoteMethod
 {
@@ -122,7 +120,7 @@ class RemoteMethodCall implements RemoteMethod
      * @param string $key The name of the parameter to return
      *
      * @return mixed The parameter's value
-     * @see \AppserverIo\Psr\PersistenceContainerProtocol\RemoteMethod::getParameter()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getParameter()
      */
     public function getParameter($key)
     {
@@ -133,7 +131,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the parameters for the method.
      *
      * @return array The method's parameters
-     * @see \AppserverIo\Psr\PersistenceContainerProtocol\RemoteMethod::getParameters()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getParameters()
      */
     public function getParameters()
     {
@@ -144,7 +142,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the class name to invoke the method on.
      *
      * @return string The class name
-     * @see \AppserverIo\Psr\PersistenceContainerProtocol\RemoteMethod::getClassName()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getClassName()
      */
     public function getClassName()
     {
@@ -155,7 +153,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the method name to invoke on the class.
      *
      * @return string The method name
-     * @see \AppserverIo\Psr\PersistenceContainerProtocol\RemoteMethod::getMethodName()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getMethodName()
      */
     public function getMethodName()
     {
@@ -166,7 +164,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the session ID to use for the method call.
      *
      * @return string The session ID
-     * @see \AppserverIo\Psr\PersistenceContainerProtocol\RemoteMethod::getSessionId()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getSessionId()
      */
     public function getSessionId()
     {
@@ -189,7 +187,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the client's server socket IP address.
      *
      * @return string The client's server socket IP address
-     * @see \AppserverIo\Psr\PersistenceContainerProtocol\RemoteMethod::getAddress()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getAddress()
      */
     public function getAddress()
     {
@@ -234,7 +232,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the client's server socket port.
      *
      * @return string The client's server socket port
-     * @see \AppserverIo\Psr\PersistenceContainerProtocol\RemoteMethod::getPort()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getPort()
      */
     public function getPort()
     {

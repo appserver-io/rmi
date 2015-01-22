@@ -1,7 +1,7 @@
 {
-	"name" : "appserver-io-psr/persistencecontainerprotocol",
-	"description" : "PSR, that defines a native persistence container protocol",
-	"homepage" : "https://github.com/appserver-io-psr/persistencecontainerprotocol",
+	"name" : "appserver-io/rmi",
+	"description" : "Remote method invokation library implementation",
+	"homepage" : "https://github.com/appserver-io/rmi",
 	"license" : "OSL-3.0",
 	"authors" : [{
 			"name" : "Tim Wagner",
@@ -11,15 +11,14 @@
 		}
 	],
 	"require" : {
-		"php" : ">=5.4.0",
-		"appserver-io-psr/epb" : "0.2.*"
+		"php" : ">=5.4.0"
 	},
 	"require-dev" : {
 		"appserver-io/build" : "0.2.*"
 	},
 	"autoload" : {
 		"psr-0" : {
-			"AppserverIo\\Psr\\PersistenceContainerProtocol" : [
+			"AppserverIo\\RemoteMethodInvocation" : [
 				"src/",
 				"tests/"
 			]
@@ -32,8 +31,8 @@
 	},
 	"support" : {
 		"email" : "tw@appserver.io",
-		"issues" : "https://github.com/appserver-io-psr/persistencecontainerprotocol/issues",
-		"source" : "https://github.com/appserver-io-psr/persistencecontainerprotocol"
+		"issues" : "https://github.com/appserver-io/rmi/issues",
+		"source" : "https://github.com/appserver-io/rmi"
 	},
 	"keywords" : [
 		"persistence container protocol doctrine"
