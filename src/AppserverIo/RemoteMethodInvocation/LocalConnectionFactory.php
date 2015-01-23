@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AppserverIo\RemoteMethodInvocation\Session
+ * AppserverIo\PersistenceContainerClient\LocalConnectionFactory
  *
  * NOTICE OF LICENSE
  *
@@ -22,8 +22,10 @@
 
 namespace AppserverIo\RemoteMethodInvocation;
 
+use AppserverIo\Collections\ArrayList;
+
 /**
- * The interface for the session.
+ * Connection factory to create a new local context connection.
  *
  * @category  Library
  * @package   RemoteMethodInvocation
@@ -33,29 +35,35 @@ namespace AppserverIo\RemoteMethodInvocation;
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
  */
-interface Session
+class LocalConnectionFactory
 {
 
     /**
-     * Returns the ID of the session to use.
+     * Private constructor to use class only in static context.
      *
-     * @return string The session ID
+     * @return void
      */
-    public function getSessionId();
+    private function __construct()
+    {
+    }
 
     /**
-     * Invokes the remote method over the connection.
+     * Simple factory to create a new context connection
+     * of the requested type.
      *
-     * @param \AppserverIo\RemoteMethodInvocation\RemoteMethod $remoteMethod The remote method call to invoke
-     *
-     * @return mixed the method return value
+     * @return \AppserverIo\RemoteMethodInvocation\Connection The requested context connection
      */
-    public function send(RemoteMethod $remoteMethod);
+    public static function createContextConnection()
+    {
 
-    /**
-     * Creates a remote inital context instance.
-     *
-     * @return \AppserverIo\RemoteMethodInvocation\RemoteObject The proxy for the inital context
-     */
-    public function createInitialContext();
+        // initialize the remote method call parser and the session storage
+        $sessions = new ArrayList();
+
+        // initialize the local context connection
+        $contextConnection = new LocalContextConnection();
+        $contextConnection->injectSessions($sessions);
+
+        // return the initialized connection
+        return $contextConnection;
+    }
 }

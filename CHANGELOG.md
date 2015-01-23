@@ -1,3 +1,13 @@
+# Version 0.4.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Merge with appserver-io/persistencecontainerclient package
+
 # Version 0.3.0
 
 ## Bugfixes

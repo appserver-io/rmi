@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AppserverIo\RemoteMethodInvocation\Session
+ * AppserverIo\PersistenceContainerClient\InitialContext
  *
  * NOTICE OF LICENSE
  *
@@ -23,7 +23,7 @@
 namespace AppserverIo\RemoteMethodInvocation;
 
 /**
- * The interface for the session.
+ * Proxy for the container instance itself.
  *
  * @category  Library
  * @package   RemoteMethodInvocation
@@ -33,29 +33,19 @@ namespace AppserverIo\RemoteMethodInvocation;
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
  */
-interface Session
+class InitialContextProxy extends RemoteProxy
 {
 
     /**
-     * Returns the ID of the session to use.
+     * Runs a lookup on the container for the class with the
+     * passed name.
      *
-     * @return string The session ID
+     * @param string $className The class name to run the lookup for
+     *
+     * @return \AppserverIo\RemoteMethodInvocation\RemoteObject The instance
      */
-    public function getSessionId();
-
-    /**
-     * Invokes the remote method over the connection.
-     *
-     * @param \AppserverIo\RemoteMethodInvocation\RemoteMethod $remoteMethod The remote method call to invoke
-     *
-     * @return mixed the method return value
-     */
-    public function send(RemoteMethod $remoteMethod);
-
-    /**
-     * Creates a remote inital context instance.
-     *
-     * @return \AppserverIo\RemoteMethodInvocation\RemoteObject The proxy for the inital context
-     */
-    public function createInitialContext();
+    public function lookup($className)
+    {
+        return RemoteProxy::create($className)->setSession($this->getSession());
+    }
 }
