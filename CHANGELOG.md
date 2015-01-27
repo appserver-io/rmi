@@ -1,3 +1,13 @@
+# Version 0.5.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Applied new file name and comment conventions
+
 # Version 0.4.0
 
 ## Bugfixes

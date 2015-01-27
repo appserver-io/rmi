@@ -11,10 +11,8 @@
  *
  * PHP version 5
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
@@ -35,10 +33,8 @@ namespace AppserverIo\RemoteMethodInvocation;
  * INVOKE 12 RMC/1.0\r\n
  * czoxOiIxIjs=\r\n
  *
- * @category  Library
- * @package   Rmi
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
@@ -49,44 +45,44 @@ class RemoteMethodProtocol
     /**
      * This is the line ending we use.
      *
-     * @var string
+     * @var string EOL
      */
     const EOL = "\r\n";
 
     /**
      * Protocol identifier.
      *
-     * @var string
+     * @var string PROTOCOL
      */
     const PROTOCOL = 'RMC';
 
     /**
      * Protocol version.
      *
-     * @var string
+     * @var string VERSION
      */
     const VERSION = '1.0';
 
     /**
      * Protocol method that signals a method remote method call.
      *
-     * @var string
+     * @var string REMOTE_METHOD_INVOKE
      */
     const REMOTE_METHOD_INVOKE = 'INVOKE';
 
     /**
-     * Protocl method that signals the result of a remote method call.
+     * Protocol method that signals the result of a remote method call.
      *
-     * @var string
+     * @var string REMOTE_METHOD_RESULT
      */
     const REMOTE_METHOD_RESULT = 'RESULT';
 
     /**
-     * Prepares the header line for a remote method invokation request.
+     * Prepares the header line for a remote method invocation request.
      *
      * @param string $string The packed remote method instance
      *
-     * @return string The remote method invokation header for the passed remote method instance
+     * @return string The remote method invocation header for the passed remote method instance
      */
     public static function prepareHeaderInvoke($string)
     {
@@ -108,7 +104,7 @@ class RemoteMethodProtocol
     /**
      * Prepares the header line for the passed remote method.
      *
-     * @param string $method The remote method to prepare the heaed for
+     * @param string $method The remote method to prepare the head for
      * @param string $string The packed remote method instance
      *
      * @return string The remote method header for the passed method

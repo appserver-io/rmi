@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AppserverIo\PersistenceContainerClient\Context\RemoteContextConnection
+ * AppserverIo\RemoteMethodInvocation\RemoteContextConnection
  *
  * NOTICE OF LICENSE
  *
@@ -11,10 +11,8 @@
  *
  * PHP version 5
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
@@ -25,21 +23,17 @@ namespace AppserverIo\RemoteMethodInvocation;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\CurlException;
 use AppserverIo\Collections\Collection;
-use AppserverIo\RemoteMethodInvocation\RemoteMethod;
-use AppserverIo\RemoteMethodInvocation\RemoteMethodProtocol;
 
 /**
  * Connection implementation to invoke a remote method call over a socket.
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
  */
-class RemoteContextConnection implements Connection
+class RemoteContextConnection implements ConnectionInterface
 {
 
     /**
@@ -277,12 +271,14 @@ class RemoteContextConnection implements Connection
     /**
      * Sends the remote method call to the container instance.
      *
-     * @param \AppserverIo\RemoteMethodInvocation\RemoteMethod $remoteMethod The remote method instance
+     * @param \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface $remoteMethod The remote method instance
      *
      * @return mixed The response from the container
-     * @see AppserverIo\RemoteMethodInvocation\Connection::send()
+     * @see AppserverIo\RemoteMethodInvocation\ConnectionInterface::send()
+     *
+     * @throws \Exception
      */
-    public function send(RemoteMethod $remoteMethod)
+    public function send(RemoteMethodInterface $remoteMethod)
     {
 
         // connect to the server if necessary
@@ -346,15 +342,15 @@ class RemoteContextConnection implements Connection
      */
     protected function getBaseUrl()
     {
-        // initialize the requeste URL with the default connection values
+        // initialize the requested URL with the default connection values
         return $this->getTransport() . '://' . $this->getAddress() . ':' . $this->getPort();
     }
 
     /**
      * Initializes a new session instance.
      *
-     * @return \AppserverIo\RemoteMethodInvocation\Session The session instance
-     * @see \AppserverIo\RemoteMethodInvocation\Connection::createContextSession()
+     * @return \AppserverIo\RemoteMethodInvocation\SessionInterface The session instance
+     * @see \AppserverIo\RemoteMethodInvocation\ConnectionInterface::createContextSession()
      */
     public function createContextSession()
     {

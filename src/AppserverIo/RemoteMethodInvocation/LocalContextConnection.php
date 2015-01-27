@@ -11,10 +11,8 @@
  *
  * PHP version 5
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
@@ -28,15 +26,13 @@ use AppserverIo\Psr\Application\ApplicationInterface;
 /**
  * Connection implementation to invoke a local method call.
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
  */
-class LocalContextConnection implements Connection
+class LocalContextConnection implements ConnectionInterface
 {
 
     /**
@@ -49,14 +45,14 @@ class LocalContextConnection implements Connection
     /**
      * The application instance.
      *
-     * @var \TechDivision\Application\Interfaces\ApplicationInterface
+     * @var \AppserverIo\Psr\Application\ApplicationInterface
      */
     protected $application;
 
     /**
      * Injects the application instance for the local connection.
      *
-     * @param \AppserverIo\Pser\Application\ApplicationInterface $application The application instance
+     * @param \AppserverIo\Psr\Application\ApplicationInterface $application The application instance
      *
      * @return void
      */
@@ -68,7 +64,7 @@ class LocalContextConnection implements Connection
     /**
      * Returns the application instance.
      *
-     * @return \AppserverIo\Pser\Application\ApplicationInterface The application instance
+     * @return \AppserverIo\Psr\Application\ApplicationInterface The application instance
      */
     public function getApplication()
     {
@@ -100,12 +96,12 @@ class LocalContextConnection implements Connection
     /**
      * Sends the remote method call to the container instance.
      *
-     * @param \AppserverIo\RemoteMethodInvocation\RemoteMethod $remoteMethod The remote method instance
+     * @param \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface $remoteMethod The remote method instance
      *
      * @return mixed The response from the container
-     * @see AppserverIo\RemoteMethodInvocation\Connection::send()
+     * @see AppserverIo\RemoteMethodInvocation\ConnectionInterface::send()
      */
-    public function send(RemoteMethod $remoteMethod)
+    public function send(RemoteMethodInterface $remoteMethod)
     {
 
         // load the application context and the bean manager
@@ -134,8 +130,8 @@ class LocalContextConnection implements Connection
     /**
      * Initializes a new session instance.
      *
-     * @return \AppserverIo\RemoteMethodInvocation\Session The session instance
-     * @see \AppserverIo\RemoteMethodInvocation\Connection::createContextSession()
+     * @return \AppserverIo\RemoteMethodInvocation\SessionInterface The session instance
+     * @see \AppserverIo\RemoteMethodInvocation\ConnectionInterface::createContextSession()
      */
     public function createContextSession()
     {

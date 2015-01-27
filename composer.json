@@ -1,6 +1,6 @@
 {
 	"name" : "appserver-io/rmi",
-	"description" : "Remote method invokation library implementation",
+	"description" : "Remote method invocation library implementation",
 	"homepage" : "https://github.com/appserver-io/rmi",
 	"license" : "OSL-3.0",
 	"authors" : [{
@@ -14,8 +14,8 @@
 		"php" : ">=5.4.0",
 		"guzzle/guzzle" : "3.9.*",
 		"appserver-io/collections" : "0.1.*",
-		"appserver-io-psr/socket" : "0.1.*",
-		"appserver-io-psr/application" : "0.4.*"
+		"appserver-io-psr/socket" : "0.2.*",
+		"appserver-io-psr/application" : "0.5.*"
 	},
 	"require-dev" : {
 		"appserver-io/build" : "0.2.*"
@@ -39,6 +39,6 @@
 		"source" : "https://github.com/appserver-io/rmi"
 	},
 	"keywords" : [
-		"persistence container protocol doctrine"
+		"persistence container protocol remote method call remotemethodcall"
 	]
 }

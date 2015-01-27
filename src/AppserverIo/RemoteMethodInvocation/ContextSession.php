@@ -11,10 +11,8 @@
  *
  * PHP version 5
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
@@ -25,21 +23,19 @@ namespace AppserverIo\RemoteMethodInvocation;
 /**
  * The interface for the remote connection.
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
  */
-class ContextSession implements Session
+class ContextSession implements SessionInterface
 {
 
     /**
      * The connection instance.
      *
-     * @var \AppserverIo\PersistenceContainerClient\Connection
+     * @var \AppserverIo\RemoteMethodInvocation\ConnectionInterface
      */
     protected $connection = null;
 
@@ -53,9 +49,9 @@ class ContextSession implements Session
     /**
      * Initializes the session with the connection.
      *
-     * @param \AppserverIo\PersistenceContainerClient\Connection $connection The connection for the session
+     * @param \AppserverIo\RemoteMethodInvocation\ConnectionInterface $connection The connection for the session
      */
-    public function __construct(Connection $connection)
+    public function __construct(ConnectionInterface $connection)
     {
         // initialize the connection
         $this->connection = $connection;
@@ -70,7 +66,7 @@ class ContextSession implements Session
      * Returns the ID of the session to use.
      *
      * @return string The session ID
-     * @see \AppserverIo\RemoteMethodInvocation\Session::getSessionId()
+     * @see \AppserverIo\RemoteMethodInvocation\SessionInterface::getSessionId()
      */
     public function getSessionId()
     {
@@ -92,13 +88,13 @@ class ContextSession implements Session
     /**
      * Invokes the remote method over the connection.
      *
-     * @param \AppserverIo\RemoteMethodInvocation\RemoteMethod $remoteMethod The remote method call to invoke
+     * @param \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface $remoteMethod The remote method call to invoke
      *
      * @return mixed the method return value
-     * @see AppserverIo\RemoteMethodInvocation\Session::send()
+     * @see AppserverIo\RemoteMethodInvocation\SessionInterface::send()
      * @todo Refactor to replace check for 'setSession' method, e. g. check for an interface
      */
-    public function send(RemoteMethod $remoteMethod)
+    public function send(RemoteMethodInterface $remoteMethod)
     {
 
         // invoke the remote method on the connection
@@ -116,8 +112,8 @@ class ContextSession implements Session
     /**
      * Creates a remote inital context instance.
      *
-     * @return \AppserverIo\RemoteMethodInvocation\RemoteObject The proxy for the inital context
-     * @see \AppserverIo\RemoteMethodInvocation\Session::createInitialContext()
+     * @return \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface The proxy for the initial context
+     * @see \AppserverIo\RemoteMethodInvocation\SessionInterface::createInitialContext()
      */
     public function createInitialContext()
     {
