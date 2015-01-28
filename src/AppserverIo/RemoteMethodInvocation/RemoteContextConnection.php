@@ -22,7 +22,7 @@ namespace AppserverIo\RemoteMethodInvocation;
 
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\CurlException;
-use AppserverIo\Collections\Collection;
+use AppserverIo\Collections\CollectionInterface;
 
 /**
  * Connection implementation to invoke a remote method call over a socket.
@@ -88,7 +88,7 @@ class RemoteContextConnection implements ConnectionInterface
     /**
      * The storage for the sessions.
      *
-     * @var \AppserverIo\Collections\Collection
+     * @var \AppserverIo\Collections\CollectionInterface
      */
     protected $sessions = null;
 
@@ -109,11 +109,11 @@ class RemoteContextConnection implements ConnectionInterface
     /**
      * Injects the collection for the sessions.
      *
-     * @param \AppserverIo\Collections\Collection $sessions The collection for the sessions
+     * @param \AppserverIo\Collections\CollectionInterface $sessions The collection for the sessions
      *
      * @return void
      */
-    public function injectSessions(Collection $sessions)
+    public function injectSessions(CollectionInterface $sessions)
     {
         $this->sessions = $sessions;
     }
@@ -121,7 +121,7 @@ class RemoteContextConnection implements ConnectionInterface
     /**
      * Returns the collection with the sessions.
      *
-     * @return \AppserverIo\Collections\Collection The collection with the sessions
+     * @return \AppserverIo\Collections\CollectionInterface The collection with the sessions
      */
     public function getSessions()
     {

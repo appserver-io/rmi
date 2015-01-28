@@ -13,7 +13,7 @@
 	"require" : {
 		"php" : ">=5.4.0",
 		"guzzle/guzzle" : "3.9.*",
-		"appserver-io/collections" : "0.1.*",
+		"appserver-io/collections" : "0.2.*",
 		"appserver-io-psr/socket" : "0.2.*",
 		"appserver-io-psr/application" : "0.5.*"
 	},
