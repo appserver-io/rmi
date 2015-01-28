@@ -11,10 +11,8 @@
  *
  * PHP version 5
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
@@ -25,10 +23,8 @@ namespace AppserverIo\RemoteMethodInvocation;
 /**
  * Test for the context connection instance.
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
@@ -39,28 +35,28 @@ class RemoteContextConnectionTest extends \PHPUnit_Framework_TestCase
     /**
      * The application name for testing purposes.
      *
-     * @var string
+     * @var string APP_NAME
      */
     const APP_NAME = 'testApp';
 
     /**
      * An IP address for testing purposes.
      *
-     * @var string
+     * @var string ADDRESS
      */
     const ADDRESS = '127.0.0.1';
 
     /**
      * A port number for testing purposes.
      *
-     * @var integer
+     * @var integer PORT
      */
     const PORT = 1234;
 
     /**
      * The instance we want to test.
      *
-     * @var \AppserverIo\RemoteMethodInvocation\RemoteContextConnection
+     * @var \AppserverIo\RemoteMethodInvocation\RemoteContextConnection $contextConnection
      */
     protected $contextConnection;
 

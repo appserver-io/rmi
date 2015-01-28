@@ -11,10 +11,8 @@
  *
  * PHP version 5
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
@@ -27,10 +25,8 @@ use AppserverIo\Collections\ArrayList;
 /**
  * Connection factory to create a new remote context connection.
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
@@ -40,8 +36,6 @@ class RemoteConnectionFactory
 
     /**
      * Private constructor to use class only in static context.
-     *
-     * @return void
      */
     private function __construct()
     {
@@ -51,7 +45,7 @@ class RemoteConnectionFactory
      * Simple factory to create a new context connection
      * of the requested type.
      *
-     * @return \AppserverIo\RemoteMethodInvocation\Connection The requested context connection
+     * @return \AppserverIo\RemoteMethodInvocation\ConnectionInterface The requested context connection
      */
     public static function createContextConnection()
     {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AppserverIo\RemoteMethodInvocation\Session
+ * AppserverIo\RemoteMethodInvocation\SessionInterface
  *
  * NOTICE OF LICENSE
  *
@@ -11,10 +11,8 @@
  *
  * PHP version 5
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
@@ -25,15 +23,13 @@ namespace AppserverIo\RemoteMethodInvocation;
 /**
  * The interface for the session.
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
  */
-interface Session
+interface SessionInterface
 {
 
     /**
@@ -46,16 +42,16 @@ interface Session
     /**
      * Invokes the remote method over the connection.
      *
-     * @param \AppserverIo\RemoteMethodInvocation\RemoteMethod $remoteMethod The remote method call to invoke
+     * @param \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface $remoteMethod The remote method call to invoke
      *
      * @return mixed the method return value
      */
-    public function send(RemoteMethod $remoteMethod);
+    public function send(RemoteMethodInterface $remoteMethod);
 
     /**
-     * Creates a remote inital context instance.
+     * Creates a remote initial context instance.
      *
-     * @return \AppserverIo\RemoteMethodInvocation\RemoteObject The proxy for the inital context
+     * @return \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface The proxy for the initial context
      */
     public function createInitialContext();
 }

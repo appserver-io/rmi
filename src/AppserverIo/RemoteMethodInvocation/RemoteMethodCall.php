@@ -11,10 +11,8 @@
  *
  * PHP version 5
  *
- * @category  Library
- * @package   RemoteMethodInvocation
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
@@ -23,17 +21,15 @@
 namespace AppserverIo\RemoteMethodInvocation;
 
 /**
- * The remote method call implemenation.
+ * The remote method call implementation.
  *
- * @category  Library
- * @package   Rmi
  * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2014 TechDivision GmbH <info@appserver.io>
+ * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
  */
-class RemoteMethodCall implements RemoteMethod
+class RemoteMethodCall implements RemoteMethodInterface
 {
 
     /**
@@ -91,8 +87,6 @@ class RemoteMethodCall implements RemoteMethod
      * @param string $className  The class name to invoke the method on
      * @param string $methodName The method name to invoke
      * @param string $sessionId  The session ID to use for the method call
-     *
-     * @return void
      */
     public function __construct($className, $methodName, $sessionId = null)
     {
@@ -120,7 +114,7 @@ class RemoteMethodCall implements RemoteMethod
      * @param string $key The name of the parameter to return
      *
      * @return mixed The parameter's value
-     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getParameter()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface::getParameter()
      */
     public function getParameter($key)
     {
@@ -131,7 +125,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the parameters for the method.
      *
      * @return array The method's parameters
-     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getParameters()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface::getParameters()
      */
     public function getParameters()
     {
@@ -142,7 +136,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the class name to invoke the method on.
      *
      * @return string The class name
-     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getClassName()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface::getClassName()
      */
     public function getClassName()
     {
@@ -153,7 +147,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the method name to invoke on the class.
      *
      * @return string The method name
-     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getMethodName()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface::getMethodName()
      */
     public function getMethodName()
     {
@@ -164,7 +158,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the session ID to use for the method call.
      *
      * @return string The session ID
-     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getSessionId()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface::getSessionId()
      */
     public function getSessionId()
     {
@@ -187,7 +181,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the client's server socket IP address.
      *
      * @return string The client's server socket IP address
-     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getAddress()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface::getAddress()
      */
     public function getAddress()
     {
@@ -232,7 +226,7 @@ class RemoteMethodCall implements RemoteMethod
      * Returns the client's server socket port.
      *
      * @return string The client's server socket port
-     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethod::getPort()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface::getPort()
      */
     public function getPort()
     {
