@@ -20,7 +20,7 @@
 
 namespace AppserverIo\RemoteMethodInvocation;
 
-use AppserverIo\Collections\Collection;
+use AppserverIo\Collections\CollectionInterface;
 use AppserverIo\Psr\Application\ApplicationInterface;
 
 /**
@@ -38,7 +38,7 @@ class LocalContextConnection implements ConnectionInterface
     /**
      * The storage for the sessions.
      *
-     * @var \AppserverIo\Collections\Collection
+     * @var \AppserverIo\Collections\CollectionInterface
      */
     protected $sessions = null;
 
@@ -74,11 +74,11 @@ class LocalContextConnection implements ConnectionInterface
     /**
      * Injects the collection for the sessions.
      *
-     * @param \AppserverIo\Collections\Collection $sessions The collection for the sessions
+     * @param \AppserverIo\Collections\CollectionInterface $sessions The collection for the sessions
      *
      * @return void
      */
-    public function injectSessions(Collection $sessions)
+    public function injectSessions(CollectionInterface $sessions)
     {
         $this->sessions = $sessions;
     }
@@ -86,7 +86,7 @@ class LocalContextConnection implements ConnectionInterface
     /**
      * Returns the collection with the sessions.
      *
-     * @return \AppserverIo\Collections\Collection The collection with the sessions
+     * @return \AppserverIo\Collections\CollectionInterface The collection with the sessions
      */
     public function getSessions()
     {

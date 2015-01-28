@@ -1,3 +1,13 @@
+# Version 0.6.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Upgraded dependencies to new appserver-io/collections 0.2.0
+
 # Version 0.5.0
 
 ## Bugfixes
