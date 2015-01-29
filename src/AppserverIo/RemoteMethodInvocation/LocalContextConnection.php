@@ -114,7 +114,7 @@ class LocalContextConnection implements ConnectionInterface
         $sessionId = $remoteMethod->getSessionId();
 
         // load the bean manager and the bean instance
-        $beanManager = $application->search('BeanContext');
+        $beanManager = $application->search('BeanContextInterface');
         $instance = $application->search($className, array($sessionId, array($application)));
 
         // invoke the remote method call on the local instance

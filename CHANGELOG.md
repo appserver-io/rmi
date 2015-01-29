@@ -1,3 +1,13 @@
+# Version 0.6.1
+
+## Bugfixes
+
+* Call to wrong BeanContent interface
+
+## Features
+
+* None
+
 # Version 0.6.0
 
 ## Bugfixes
