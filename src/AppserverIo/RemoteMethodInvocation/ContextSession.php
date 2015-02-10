@@ -12,6 +12,7 @@
  * PHP version 5
  *
  * @author    Tim Wagner <tw@appserver.io>
+ * @author    Bernhard Wick <bw@appserver.io>
  * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
@@ -24,6 +25,7 @@ namespace AppserverIo\RemoteMethodInvocation;
  * The interface for the remote connection.
  *
  * @author    Tim Wagner <tw@appserver.io>
+ * @author    Bernhard Wick <bw@appserver.io>
  * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
@@ -110,7 +112,7 @@ class ContextSession implements SessionInterface
     }
 
     /**
-     * Creates a remote inital context instance.
+     * Creates a remote initial context instance.
      *
      * @return \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface The proxy for the initial context
      * @see \AppserverIo\RemoteMethodInvocation\SessionInterface::createInitialContext()
@@ -118,7 +120,7 @@ class ContextSession implements SessionInterface
     public function createInitialContext()
     {
         $initialContext = new InitialContextProxy();
-        $initialContext->setSession($this);
+        $initialContext->__setSession($this);
         return $initialContext;
     }
 }

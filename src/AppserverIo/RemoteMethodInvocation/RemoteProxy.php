@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AppserverIo\PersistenceContainerClient\RemoteProxy
+ * \AppserverIo\RemoteMethodInvocation\RemoteProxy
  *
  * NOTICE OF LICENSE
  *
@@ -12,6 +12,7 @@
  * PHP version 5
  *
  * @author    Tim Wagner <tw@appserver.io>
+ * @author    Bernhard Wick <bw@appserver.io>
  * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
@@ -26,7 +27,7 @@ namespace AppserverIo\RemoteMethodInvocation;
  *
  * namespace AppserverIo\Example;
  *
- * use AppserverIo\RemoteMethodInvokation\RemoteConnectionFactory;
+ * use AppserverIo\RemoteMethodInvocation\RemoteConnectionFactory;
  *
  * $connection = RemoteConnectionFactory::createContextConnection();
  * $session = $connection->createContextSession();
@@ -35,6 +36,7 @@ namespace AppserverIo\RemoteMethodInvocation;
  * $processor = $initialContext->lookup('Some\ProxyClass');
  *
  * @author    Tim Wagner <tw@appserver.io>
+ * @author    Bernhard Wick <bw@appserver.io>
  * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
@@ -71,9 +73,9 @@ class RemoteProxy implements RemoteObjectInterface
      * The name of the original object.
      *
      * @return string The name of the original object
-     * @see \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface::getClassName()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface::__getClassName()
      */
-    public function getClassName()
+    public function __getClassName()
     {
         return $this->className;
     }
@@ -85,7 +87,7 @@ class RemoteProxy implements RemoteObjectInterface
      *
      * @return \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface The instance itself
      */
-    public function setSession(SessionInterface $session)
+    public function __setSession(SessionInterface $session)
     {
         $this->session = $session;
         return $this;
@@ -95,9 +97,9 @@ class RemoteProxy implements RemoteObjectInterface
      * Returns the session instance.
      *
      * @return \AppserverIo\RemoteMethodInvocation\SessionInterface The session instance
-     * @see \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface::getSession()
+     * @see \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface::__getSession()
      */
-    public function getSession()
+    public function __getSession()
     {
         return $this->session;
     }
@@ -112,11 +114,11 @@ class RemoteProxy implements RemoteObjectInterface
      */
     public function __call($method, $params)
     {
-        $methodCall = new RemoteMethodCall($this->getClassName(), $method, $this->getSession()->getSessionId());
+        $methodCall = new RemoteMethodCall($this->__getClassName(), $method, $this->__getSession()->getSessionId());
         foreach ($params as $key => $value) {
             $methodCall->addParameter($key, $value);
         }
-        return $this->__invoke($methodCall, $this->getSession());
+        return $this->__invoke($methodCall, $this->__getSession());
     }
 
     /**
@@ -129,7 +131,7 @@ class RemoteProxy implements RemoteObjectInterface
      */
     public function __invoke(RemoteMethodInterface $methodCall, SessionInterface $session)
     {
-        return $this->setSession($session)->getSession()->send($methodCall);
+        return $this->__setSession($session)->__getSession()->send($methodCall);
     }
 
     /**
@@ -139,7 +141,7 @@ class RemoteProxy implements RemoteObjectInterface
      *
      * @return \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface The proxy instance
      */
-    public static function create($className)
+    public static function __create($className)
     {
         return new RemoteProxy($className);
     }

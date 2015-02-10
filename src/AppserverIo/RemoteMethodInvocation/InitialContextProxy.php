@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AppserverIo\RemoteMethodInvocation\InitialContextProxy
+ * \AppserverIo\RemoteMethodInvocation\InitialContextProxy
  *
  * NOTICE OF LICENSE
  *
@@ -12,6 +12,7 @@
  * PHP version 5
  *
  * @author    Tim Wagner <tw@appserver.io>
+ * @author    Bernhard Wick <bw@appserver.io>
  * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
@@ -24,6 +25,7 @@ namespace AppserverIo\RemoteMethodInvocation;
  * Proxy for the container instance itself.
  *
  * @author    Tim Wagner <tw@appserver.io>
+ * @author    Bernhard Wick <bw@appserver.io>
  * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
@@ -42,6 +44,6 @@ class InitialContextProxy extends RemoteProxy
      */
     public function lookup($className)
     {
-        return RemoteProxy::create($className)->setSession($this->getSession());
+        return RemoteProxy::__create($className)->__setSession($this->__getSession());
     }
 }
