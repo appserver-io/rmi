@@ -1,3 +1,13 @@
+# Version 0.7.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Changed API of remote objects based on the RemoteObjectInterface
+
 # Version 0.6.1
 
 ## Bugfixes
