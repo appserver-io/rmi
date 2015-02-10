@@ -1,4 +1,4 @@
-# Version 0.6.2
+# Version 0.7.1
 
 ## Bugfixes
 
@@ -7,6 +7,16 @@
 ## Features
 
 * Switch to appserver-io-psr/application 0.6.* branch
+
+# Version 0.7.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Changed API of remote objects based on the RemoteObjectInterface
 
 # Version 0.6.1
 

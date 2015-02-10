@@ -8,7 +8,13 @@
 			"email" : "tw@appserver.io",
 			"homepage" : "https://github.com/wagnert",
 			"role" : "Developer"
-		}
+		},
+        {
+            "name" : "Bernhard Wick",
+            "email" : "bw@appserver.io",
+            "homepage" : "https://github.com/wick-ed",
+            "role" : "Developer"
+        }
 	],
 	"require" : {
 		"php" : ">=5.4.0",

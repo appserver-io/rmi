@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AppserverIo\RemoteMethodInvocation\RemoteObjectInterface
+ * \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface
  *
  * NOTICE OF LICENSE
  *
@@ -12,6 +12,7 @@
  * PHP version 5
  *
  * @author    Tim Wagner <tw@appserver.io>
+ * @author    Bernhard Wick <bw@appserver.io>
  * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
@@ -24,6 +25,7 @@ namespace AppserverIo\RemoteMethodInvocation;
  * Interface for all remote objects.
  *
  * @author    Tim Wagner <tw@appserver.io>
+ * @author    Bernhard Wick <bw@appserver.io>
  * @copyright 2015 TechDivision GmbH <info@appserver.io>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link      https://github.com/appserver-io/rmi
@@ -37,12 +39,21 @@ interface RemoteObjectInterface
      *
      * @return \AppserverIo\RemoteMethodInvocation\SessionInterface The session instance
      */
-    public function getSession();
+    public function __getSession();
 
     /**
      * The name of the original object.
      *
      * @return string The name of the original object
      */
-    public function getClassName();
+    public function __getClassName();
+
+    /**
+     * Sets the session with the connection instance.
+     *
+     * @param \AppserverIo\RemoteMethodInvocation\SessionInterface $session The session instance to use
+     *
+     * @return \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface The instance itself
+     */
+    public function __setSession(SessionInterface $session);
 }
