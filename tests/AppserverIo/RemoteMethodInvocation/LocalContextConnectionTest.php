@@ -244,7 +244,7 @@ class LocalContextConnectionTest extends \PHPUnit_Framework_TestCase
                             ->getMock();
 
         // mock the methods
-        $mockSession->expects($this->once())
+        $mockSession->expects($this->exactly(2))
                     ->method('getSessionId')
                     ->willReturn($sessionId);
         $mockSession->expects($this->once())
