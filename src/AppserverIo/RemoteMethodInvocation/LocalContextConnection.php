@@ -50,6 +50,20 @@ class LocalContextConnection implements ConnectionInterface
     protected $application;
 
     /**
+     * The bean manager instance to load the local bean instance with.
+     *
+     * @var \AppserverIo\Psr\EnterpriseBeans\BeanContextInterface
+     */
+    protected $beanManager;
+
+    /**
+     * The local bean instance we're the proxy for.
+     *
+     * @var object
+     */
+    protected $instance;
+
+    /**
      * Injects the application instance for the local connection.
      *
      * @param \AppserverIo\Psr\Application\ApplicationInterface $application The application instance
@@ -58,7 +72,12 @@ class LocalContextConnection implements ConnectionInterface
      */
     public function injectApplication(ApplicationInterface $application)
     {
+
+        // set the application instance
         $this->application = $application;
+
+        // load the bean manager instance from the application
+        $this->beanManager = $application->search('BeanContextInterface');
     }
 
     /**
@@ -104,24 +123,26 @@ class LocalContextConnection implements ConnectionInterface
     public function send(RemoteMethodInterface $remoteMethod)
     {
 
-        // load the application context and the bean manager
-        $application = $this->getApplication();
-
         // prepare method name and parameters and invoke method
         $className = $remoteMethod->getClassName();
         $methodName = $remoteMethod->getMethodName();
         $parameters = $remoteMethod->getParameters();
         $sessionId = $remoteMethod->getSessionId();
 
-        // load the bean manager and the bean instance
-        $beanManager = $application->search('BeanContextInterface');
-        $instance = $application->search($className, array($sessionId, array($application)));
+        // query whether we've the instance already loaded
+        if ($this->instance == null) {
+            // load the application context and the bean manager
+            $application = $this->getApplication();
+
+            // load local bean instance from the application
+            $this->instance = $application->search($className, array($sessionId, array($application)));
+        }
 
         // invoke the remote method call on the local instance
-        $response = call_user_func_array(array($instance, $methodName), $parameters);
+        $response = call_user_func_array(array($this->instance, $methodName), $parameters);
 
-        // reattach the bean instance in the container and unlock it
-        $beanManager->attach($instance, $sessionId);
+        // re-attach the bean instance in the container and unlock it
+        $this->beanManager->attach($this->instance, $sessionId);
 
         // return the response to the client
         return $response;
