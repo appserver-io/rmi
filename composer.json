@@ -8,19 +8,19 @@
 			"email" : "tw@appserver.io",
 			"homepage" : "https://github.com/wagnert",
 			"role" : "Developer"
-		},
-        {
-            "name" : "Bernhard Wick",
-            "email" : "bw@appserver.io",
-            "homepage" : "https://github.com/wick-ed",
-            "role" : "Developer"
-        }
+		}, {
+			"name" : "Bernhard Wick",
+			"email" : "bw@appserver.io",
+			"homepage" : "https://github.com/wick-ed",
+			"role" : "Developer"
+		}
 	],
 	"require" : {
 		"php" : ">=5.4.0",
 		"guzzle/guzzle" : "3.9.*",
-		"appserver-io/collections" : "~1.0",
+		"appserver-io-psr/epb" : "~1.0",
 		"appserver-io-psr/socket" : "~1.0",
+		"appserver-io/collections" : "~1.0",
 		"appserver-io-psr/application" : "~1.0"
 	},
 	"require-dev" : {

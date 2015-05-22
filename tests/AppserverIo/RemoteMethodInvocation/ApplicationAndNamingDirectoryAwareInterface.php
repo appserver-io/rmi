@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AppserverIo\RemoteMethodInvocation\ConnectionInterface
+ * AppserverIo\RemoteMethodInvocation\ApplicationAndNamingDirectoryAwareInterface
  *
  * NOTICE OF LICENSE
  *
@@ -20,8 +20,10 @@
 
 namespace AppserverIo\RemoteMethodInvocation;
 
+use AppserverIo\Psr\Application\ApplicationInterface;
+
 /**
- * The interface for the remote connection.
+ * Wrapper to test application implements the naming directory interface.
  *
  * @author    Tim Wagner <tw@appserver.io>
  * @copyright 2015 TechDivision GmbH <info@appserver.io>
@@ -29,29 +31,18 @@ namespace AppserverIo\RemoteMethodInvocation;
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
  */
-interface ConnectionInterface
+interface ApplicationAndNamingDirectoryAwareInterface extends ApplicationInterface
 {
 
     /**
-     * Returns the application instance.
+     * Queries the naming directory for the requested name and returns the value
+     * or invokes the bound callback.
      *
-     * @return \AppserverIo\Psr\Application\ApplicationInterface|null The application instance
+     * @param string $name The name of the requested value
+     * @param array  $args The arguments to pass to the callback
+     *
+     * @return mixed The requested value
+     * @throws \AppserverIo\Psr\Naming\NamingException Is thrown if the requested name can't be resolved in the directory
      */
-    public function getApplication();
-
-    /**
-     * Sends the remote method call to the container instance.
-     *
-     * @param \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface $remoteMethod The remote method to invoke
-     *
-     * @return mixed The response from the container
-     */
-    public function send(RemoteMethodInterface $remoteMethod);
-
-    /**
-     * Initializes a new session instance.
-     *
-     * @return \AppserverIo\RemoteMethodInvocation\SessionInterface The session instance
-     */
-    public function createContextSession();
+    public function search($name, array $args = array());
 }
