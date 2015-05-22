@@ -1,25 +1,23 @@
 # Remote method invokation library implementation
 
-[![Latest Stable Version](https://poser.pugx.org/appserver-io/rmi/v/stable.png)](https://packagist.org/packages/appserver-io/rmi) [![Total Downloads](https://poser.pugx.org/appserver-io/rmi/downloads.png)](https://packagist.org/packages/appserver-io/rmi) [![License](https://poser.pugx.org/appserver-io/rmi/license.png)](https://packagist.org/packages/appserver-io/rmi) [![Build Status](https://travis-ci.org/appserver-io/rmi.png)](https://travis-ci.org/appserver-io/rmi) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/appserver-io/rmi/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/appserver-io/rmi/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/appserver-io/rmi/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/appserver-io/rmi/?branch=master)
+
+[![Latest Stable Version](https://img.shields.io/packagist/v/appserver-io/rmi.svg?style=flat-square)](https://packagist.org/packages/appserver-io/rmi) 
+ [![Total Downloads](https://img.shields.io/packagist/dt/appserver-io/rmi.svg?style=flat-square)](https://packagist.org/packages/appserver-io/rmi)
+ [![License](https://img.shields.io/packagist/l/appserver-io/rmi.svg?style=flat-square)](https://packagist.org/packages/appserver-io/rmi)
+ [![Build Status](https://img.shields.io/travis/appserver-io/rmi/master.svg?style=flat-square)](http://travis-ci.org/appserver-io/rmi)
+ [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/appserver-io/rmi/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/appserver-io/rmi/?branch=master)
+ [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/appserver-io/rmi/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/appserver-io/rmi/?branch=master)
 
 ## Introduction
 
 Library that implements basic remote method invocation.
 
-## Installation
+## Issues
 
-If you want to use the library with your application you can install it by adding
+In order to bundle our efforts we would like to collect all issues regarding this package in [the main project repository's issue tracker](https://github.com/appserver-io/appserver/issues).
+Please reference the originating repository as the first element of the issue title e.g.:
+`[appserver-io/<ORIGINATING_REPO>] A issue I am having`
 
-```sh
-{
-    "require": {
-        "appserver-io/rmi": "dev-master"
-    },
-}
-```
-
-to your ```composer.json``` and invoke ```composer update``` in your project.
-
-# External Links
+## External Links
 
 * Documentation at [appserver.io](http://docs.appserver.io)

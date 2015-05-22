@@ -1,3 +1,23 @@
+# Version 1.0.1
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Add local cached bean instances on local connection + PHPUnit tests
+
+# Version 1.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switched to new stable dependencies
+
 # Version 0.7.1
 
 ## Bugfixes
