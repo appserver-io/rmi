@@ -357,4 +357,14 @@ class RemoteContextConnection implements ConnectionInterface
         $this->sessions->add($session = new ContextSession($this));
         return $session;
     }
+
+    /**
+     * Returns the application instance.
+     *
+     * @return \AppserverIo\Psr\Application\ApplicationInterface|null The application instance
+     */
+    public function getApplication()
+    {
+        return;
+    }
 }

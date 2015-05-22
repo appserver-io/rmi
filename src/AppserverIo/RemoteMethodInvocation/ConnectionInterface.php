@@ -33,6 +33,13 @@ interface ConnectionInterface
 {
 
     /**
+     * Returns the application instance.
+     *
+     * @return \AppserverIo\Psr\Application\ApplicationInterface|null The application instance
+     */
+    public function getApplication();
+
+    /**
      * Sends the remote method call to the container instance.
      *
      * @param \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface $remoteMethod The remote method to invoke

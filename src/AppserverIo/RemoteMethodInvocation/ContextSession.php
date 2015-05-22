@@ -21,6 +21,8 @@
 
 namespace AppserverIo\RemoteMethodInvocation;
 
+use AppserverIo\Collections\HashMap;
+
 /**
  * The interface for the remote connection.
  *
@@ -31,7 +33,7 @@ namespace AppserverIo\RemoteMethodInvocation;
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
  */
-class ContextSession implements SessionInterface
+class ContextSession extends HashMap implements SessionInterface
 {
 
     /**
@@ -61,6 +63,39 @@ class ContextSession implements SessionInterface
         if (($this->sessionId = session_id()) == null) {
             // if not, create a unique ID
             $this->sessionId = uniqid();
+        }
+    }
+
+    /**
+     * Returns the connection instance.
+     *
+     * @return \AppserverIo\RemoteMethodInvocation\ConnectionInterface The connection instance
+     */
+    public function getConnection()
+    {
+        return $this->connection;
+    }
+
+    /**
+     * Re-Attaches the beans bound to this session to the container.
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+
+        // query whether we've beans that has to be re-attached to the container or not
+        if ($this->size() > 0 && $application = $this->getConnection()->getApplication()) {
+            // load the bean manager instance from the application
+            $beanManager = $application->search('BeanContextInterface');
+
+            // load the session-ID
+            $sessionId = $this->getSessionId();
+
+            // attach all beans of this session
+            foreach ($this->items as $className => $instance) {
+                $beanManager->attach($instance, $sessionId);
+            }
         }
     }
 

@@ -20,7 +20,6 @@
 
 namespace AppserverIo\RemoteMethodInvocation;
 
-use AppserverIo\Psr\Naming\NamingDirectoryInterface;
 use AppserverIo\Psr\Application\ApplicationInterface;
 
 /**
@@ -32,6 +31,18 @@ use AppserverIo\Psr\Application\ApplicationInterface;
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
  */
-interface ApplicationAndNamingDirectoryAwareInterface extends ApplicationInterface, NamingDirectoryInterface
+interface ApplicationAndNamingDirectoryAwareInterface extends ApplicationInterface
 {
+
+    /**
+     * Queries the naming directory for the requested name and returns the value
+     * or invokes the bound callback.
+     *
+     * @param string $name The name of the requested value
+     * @param array  $args The arguments to pass to the callback
+     *
+     * @return mixed The requested value
+     * @throws \AppserverIo\Psr\Naming\NamingException Is thrown if the requested name can't be resolved in the directory
+     */
+    public function search($name, array $args = array());
 }
