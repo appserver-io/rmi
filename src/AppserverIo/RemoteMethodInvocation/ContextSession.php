@@ -57,6 +57,9 @@ class ContextSession extends HashMap implements SessionInterface
      */
     public function __construct(ConnectionInterface $connection)
     {
+        // parent constructor to ensure property preset
+        parent::__construct(null);
+
         // initialize the connection
         $this->connection = $connection;
         // check if already a session id exists in the session
