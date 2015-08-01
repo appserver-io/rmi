@@ -22,6 +22,7 @@
 namespace AppserverIo\RemoteMethodInvocation;
 
 use AppserverIo\Collections\HashMap;
+use AppserverIo\Collections\ArrayList;
 
 /**
  * The interface for the remote connection.
@@ -37,11 +38,11 @@ class ContextSession extends HashMap implements SessionInterface
 {
 
     /**
-     * The connection instance.
+     * The connection instances.
      *
-     * @var \AppserverIo\RemoteMethodInvocation\ConnectionInterface
+     * @var \AppserverIo\Collections\ArrayList
      */
-    protected $connection = null;
+    protected $connections = null;
 
     /**
      * The session ID used for the connection.
@@ -57,8 +58,13 @@ class ContextSession extends HashMap implements SessionInterface
      */
     public function __construct(ConnectionInterface $connection)
     {
-        // initialize the connection
-        $this->connection = $connection;
+
+        // initialize the ArrayList for the collections
+        $this->connections = new ArrayList();
+
+        // add the passed connection
+        $this->addConnection($connection);
+
         // check if already a session id exists in the session
         if (($this->sessionId = session_id()) == null) {
             // if not, create a unique ID
@@ -67,13 +73,37 @@ class ContextSession extends HashMap implements SessionInterface
     }
 
     /**
+     * Add's the passed connection to the session's connection collection.
+     *
+     * @param \AppserverIo\RemoteMethodInvocation\ConnectionInterface $connection The connection instance to add
+     *
+     * @return void
+     */
+    public function addConnection(ConnectionInterface $connection)
+    {
+        $this->connections->add($connection);
+    }
+
+    /**
+     * Returns the collection with the session's connections.
+     *
+     * @return \AppserverIo\Collections\ArrayList The collection with the session's connections
+     */
+    public function getConnections()
+    {
+        return $this->connections;
+    }
+
+    /**
      * Returns the connection instance.
+     *
+     * @param integer $key The key of the connection to return
      *
      * @return \AppserverIo\RemoteMethodInvocation\ConnectionInterface The connection instance
      */
-    public function getConnection()
+    public function getConnection($key = 0)
     {
-        return $this->connection;
+        return $this->connections->get($key);
     }
 
     /**
@@ -85,16 +115,22 @@ class ContextSession extends HashMap implements SessionInterface
     {
 
         // query whether we've beans that has to be re-attached to the container or not
-        if ($this->size() > 0 && $application = $this->getConnection()->getApplication()) {
-            // load the bean manager instance from the application
-            $beanManager = $application->search('BeanContextInterface');
+        if ($this->size() > 0) {
+            // iterate over all connections to query if the bean has to be re-attached
+            foreach ($this->getConnections() as $connection) {
+                // query whether we've local context connection or not
+                if ($application = $connection->getApplication()) {
+                    // load the bean manager instance from the application
+                    $beanManager = $application->search('BeanContextInterface');
 
-            // load the session-ID
-            $sessionId = $this->getSessionId();
+                    // load the session-ID
+                    $sessionId = $this->getSessionId();
 
-            // attach all beans of this session
-            foreach ($this->items as $className => $instance) {
-                $beanManager->attach($instance, $sessionId);
+                    // attach all beans of this session
+                    foreach ($this->items as $instance) {
+                        $beanManager->attach($instance, $sessionId);
+                    }
+                }
             }
         }
     }
@@ -134,16 +170,22 @@ class ContextSession extends HashMap implements SessionInterface
     public function send(RemoteMethodInterface $remoteMethod)
     {
 
-        // invoke the remote method on the connection
-        $response = $this->connection->send($remoteMethod);
+        // create an array to store connection response temporarily
+        $responses = array();
 
-        // check if a proxy has been returned
-        if (method_exists($response, 'setSession')) {
-            $response->setSession($this);
+        // iterate over all connections and invoke the remote method call
+        foreach ($this->getConnections() as $key => $connection) {
+            // invoke the remote method on the connection
+            $responses[$key] = $connection->send($remoteMethod);
+
+            // check if a proxy has been returned
+            if (method_exists($response, 'setSession')) {
+                $responses[$key]->setSession($this);
+            }
         }
 
-        // return the response
-        return $response;
+        // return the response of the first connection
+        return reset($responses);
     }
 
     /**
