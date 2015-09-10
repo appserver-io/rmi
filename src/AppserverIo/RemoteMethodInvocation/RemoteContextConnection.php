@@ -329,7 +329,7 @@ class RemoteContextConnection implements ConnectionInterface
     /**
      * Prepares the base URL we used for the connection to the persistence container.
      *
-     * @param string The URL path to append
+     * @param string $path The URL path to append
      *
      * @return string The default base URL
      */

@@ -77,7 +77,7 @@ class RemoteExceptionWrapper implements \Serializable
     /**
      * Initializes the wrapper with the data from the passed exception.
      *
-     * @param \Exception The exception we want to wrap
+     * @param \Exception $e The exception we want to wrap
      */
     public function __construct(\Exception $e)
     {
