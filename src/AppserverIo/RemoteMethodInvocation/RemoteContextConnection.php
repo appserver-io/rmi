@@ -20,8 +20,6 @@
 
 namespace AppserverIo\RemoteMethodInvocation;
 
-use Guzzle\Http\Client;
-use Guzzle\Http\Exception\CurlException;
 use AppserverIo\Collections\CollectionInterface;
 
 /**
@@ -98,13 +96,6 @@ class RemoteContextConnection implements ConnectionInterface
      * @var \AppserverIo\RemoteMethodInvocation\RemoteMethodCallParser
      */
     protected $parser;
-
-    /**
-     * The HTTP client we use for connection to the persistence container.
-     *
-     * @var \Guzzle\Http\Client
-     */
-    protected $client;
 
     /**
      * Injects the collection for the sessions.
@@ -245,7 +236,7 @@ class RemoteContextConnection implements ConnectionInterface
      */
     public function connect()
     {
-        $this->client = new Client($this->getBaseUrl());
+        return;
     }
 
     /**
@@ -255,17 +246,17 @@ class RemoteContextConnection implements ConnectionInterface
      */
     public function disconnect()
     {
-        $this->client = null;
+        return;
     }
 
     /**
      * Returns the socket the connection is based on.
      *
-     * @return \Guzzle\Http\Client The socket instance
+     * @return object|null The socket instance
      */
     public function getSocket()
     {
-        return $this->client;
+        return;
     }
 
     /**
@@ -281,9 +272,6 @@ class RemoteContextConnection implements ConnectionInterface
     public function send(RemoteMethodInterface $remoteMethod)
     {
 
-        // connect to the server if necessary
-        $this->connect();
-
         // set address + port + appName
         $remoteMethod->setAddress($this->getAddress());
         $remoteMethod->setPort($this->getPort());
@@ -292,33 +280,36 @@ class RemoteContextConnection implements ConnectionInterface
         // serialize the remote method and write it to the socket
         $packed = RemoteMethodProtocol::pack($remoteMethod);
 
-        // invoke the RMC with a number of retries
-        $maxRetries = 0;
-        $retry = true;
-        while ($retry) {
-            try {
-                // send a POST request
-                $request = $this->getSocket()->post($this->getPath(), array('timeout' => 5));
-                $request->setBody($packed);
-                $response = $request->send();
+        // performs the HTTP POST
+        $opts = array (
+            'http' => array (
+                'method'  => 'POST',
+                'header'  => 'Content-type: text/plain',
+                'content' => $packed
+            )
+        );
 
-                $retry = false;
+        // create the context
+        $context  = stream_context_create($opts);
 
-            } catch (CurlException $ce) {
-                $maxRetries++;
-                if ($maxRetries >= 5) {
-                    $retry = false;
-                    throw $ce;
-                }
+        // invoke a HTTP request and try to read the response from the remote server
+        if ($fp = fopen($this->getBaseUrl($this->getPath()), 'r', false, $context)) {
+            // initialize the response
+            $response = '';
+            // read while content is available
+            while ($row = fgets($fp)) {
+                $response .= trim($row);
             }
+        } else {
+            throw new \Exception('Unable to connect to ' . $url);
         }
 
         // read the remote method call result
-        $result = RemoteMethodProtocol::unpack($response->getBody());
+        $result = RemoteMethodProtocol::unpack($response);
 
         // if an exception returns, throw it again
-        if ($result instanceof \Exception) {
-            throw $result;
+        if ($result instanceof RemoteExceptionWrapper) {
+            throw $result->toException();
         }
 
         // close the connection and return the data
@@ -338,12 +329,14 @@ class RemoteContextConnection implements ConnectionInterface
     /**
      * Prepares the base URL we used for the connection to the persistence container.
      *
+     * @param string $path The URL path to append
+     *
      * @return string The default base URL
      */
-    protected function getBaseUrl()
+    protected function getBaseUrl($path = '')
     {
         // initialize the requested URL with the default connection values
-        return $this->getTransport() . '://' . $this->getAddress() . ':' . $this->getPort();
+        return $this->getTransport() . '://' . $this->getAddress() . ':' . $this->getPort() . $path;
     }
 
     /**

@@ -1,3 +1,14 @@
+# Version 1.2.0
+
+## Bugfixes
+
+* Wrapping Remote Exceptions to avoid serialization problems
+* Replacing Guzzle HTTP client with native PHP implementation
+
+## Features
+
+* None
+
 # Version 1.1.1
 
 ## Bugfixes
