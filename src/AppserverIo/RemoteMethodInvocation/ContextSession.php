@@ -178,11 +178,12 @@ class ContextSession extends HashMap implements SessionInterface
 
         // iterate over all connections and invoke the remote method call
         foreach ($this->getConnections() as $key => $connection) {
+
             // invoke the remote method on the connection
             $responses[$key] = $connection->send($remoteMethod);
 
             // check if a proxy has been returned
-            if (method_exists($response, 'setSession')) {
+            if (method_exists($responses[$key], 'setSession')) {
                 $responses[$key]->setSession($this);
             }
         }
