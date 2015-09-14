@@ -23,6 +23,8 @@ namespace AppserverIo\RemoteMethodInvocation;
 
 use AppserverIo\Collections\HashMap;
 use AppserverIo\Collections\ArrayList;
+use AppserverIo\Psr\Servlet\SessionUtils;
+use AppserverIo\Psr\Servlet\Http\HttpServletRequestInterface;
 
 /**
  * The interface for the remote connection.
@@ -52,6 +54,13 @@ class ContextSession extends HashMap implements SessionInterface
     protected $sessionId = null;
 
     /**
+     * The servlet request to load the session ID used for the connection.
+     *
+     * @var string
+     */
+    protected $servletRequest = null;
+
+    /**
      * Initializes the session with the connection.
      *
      * @param \AppserverIo\RemoteMethodInvocation\ConnectionInterface $connection The connection for the session
@@ -67,12 +76,57 @@ class ContextSession extends HashMap implements SessionInterface
 
         // add the passed connection
         $this->addConnection($connection);
+    }
 
-        // check if already a session id exists in the session
-        if (($this->sessionId = session_id()) == null) {
-            // if not, create a unique ID
-            $this->sessionId = uniqid();
+    /**
+     * Re-Attaches the beans bound to this session to the container.
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+
+        // query whether we've beans that has to be re-attached to the container or not
+        if ($this->size() > 0) {
+            // iterate over all connections to query if the bean has to be re-attached
+            foreach ($this->getConnections() as $connection) {
+                // query whether we've local context connection or not
+                if ($application = $connection->getApplication()) {
+                    // load the bean manager instance from the application
+                    $beanManager = $application->search('BeanContextInterface');
+
+                    // load the session-ID
+                    $sessionId = $this->getSessionId();
+
+                    // attach all beans of this session
+                    foreach ($this->items as $instance) {
+                        $beanManager->attach($instance, $sessionId);
+                    }
+                }
+            }
         }
+    }
+
+    /**
+     * Injects the servlet request to load the session ID, for the remote method call, from.
+     *
+     * @param \AppserverIo\Psr\Servlet\Http\HttpServletRequestInterface $servletRequest The servlet request instance to inject
+     *
+     * @return void
+     */
+    public function injectServletRequest(HttpServletRequestInterface $servletRequest)
+    {
+        $this->servletRequest = $servletRequest;
+    }
+
+    /**
+     * Returns the servlet request instance to load the session ID from.
+     *
+     * @return \AppserverIo\Psr\Servlet\Http\HttpServletRequestInterface The servlet request instance
+     */
+    public function getServletRequest()
+    {
+        return $this->servletRequest;
     }
 
     /**
@@ -110,43 +164,27 @@ class ContextSession extends HashMap implements SessionInterface
     }
 
     /**
-     * Re-Attaches the beans bound to this session to the container.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-
-        // query whether we've beans that has to be re-attached to the container or not
-        if ($this->size() > 0) {
-            // iterate over all connections to query if the bean has to be re-attached
-            foreach ($this->getConnections() as $connection) {
-                // query whether we've local context connection or not
-                if ($application = $connection->getApplication()) {
-                    // load the bean manager instance from the application
-                    $beanManager = $application->search('BeanContextInterface');
-
-                    // load the session-ID
-                    $sessionId = $this->getSessionId();
-
-                    // attach all beans of this session
-                    foreach ($this->items as $instance) {
-                        $beanManager->attach($instance, $sessionId);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Returns the ID of the session to use.
+     * Returns the ID of the session to use for connecting to the SFSBs.
      *
      * @return string The session ID
      * @see \AppserverIo\RemoteMethodInvocation\SessionInterface::getSessionId()
      */
     public function getSessionId()
     {
-        return $this->sessionId;
+
+        // this is necessary, because in most cases, the session will be started after the
+        // SFSB has been injected, so we've to query for a session in method invocation
+
+        // query whether we've a HTTP session ID in the servlet request.
+        /** \AppserverIo\Psr\Servlet\Http\HttpSessionInterface $session */
+        if ($this->getServletRequest() && $session = $this->getServletRequest()->getSession()) {
+            return $session->getId();
+        }
+
+        // query whether we've a session ID that has been manually set
+        if ($this->sessionId != null) {
+            return $this->sessionId;
+        }
     }
 
     /**
