@@ -1,3 +1,13 @@
+# Version 1.2.1
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Use HTTP session to evaluate session ID necessary to handle SFSBs
+
 # Version 1.2.0
 
 ## Bugfixes
