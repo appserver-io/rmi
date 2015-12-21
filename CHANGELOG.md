@@ -1,3 +1,13 @@
+# Version 1.2.2
+
+## Bugfixes
+
+* Replace ArrayList with array in ContextSession class to avoid segfaults in certain circumstances
+
+## Features
+
+* None
+
 # Version 1.2.1
 
 ## Bugfixes

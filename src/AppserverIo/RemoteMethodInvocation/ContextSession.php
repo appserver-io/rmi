@@ -22,7 +22,6 @@
 namespace AppserverIo\RemoteMethodInvocation;
 
 use AppserverIo\Collections\HashMap;
-use AppserverIo\Collections\ArrayList;
 use AppserverIo\Psr\Servlet\SessionUtils;
 use AppserverIo\Psr\Servlet\Http\HttpServletRequestInterface;
 
@@ -42,7 +41,7 @@ class ContextSession extends HashMap implements SessionInterface
     /**
      * The connection instances.
      *
-     * @var \AppserverIo\Collections\ArrayList
+     * @var array
      */
     protected $connections = null;
 
@@ -71,8 +70,8 @@ class ContextSession extends HashMap implements SessionInterface
         // parent constructor to ensure property preset
         parent::__construct(null);
 
-        // initialize the ArrayList for the collections
-        $this->connections = new ArrayList();
+        // initialize the array for the collections
+        $this->connections = array();
 
         // add the passed connection
         $this->addConnection($connection);
@@ -138,13 +137,13 @@ class ContextSession extends HashMap implements SessionInterface
      */
     public function addConnection(ConnectionInterface $connection)
     {
-        $this->connections->add($connection);
+        $this->connections[] = $connection;
     }
 
     /**
      * Returns the collection with the session's connections.
      *
-     * @return \AppserverIo\Collections\ArrayList The collection with the session's connections
+     * @return array The collection with the session's connections
      */
     public function getConnections()
     {
@@ -160,7 +159,7 @@ class ContextSession extends HashMap implements SessionInterface
      */
     public function getConnection($key = 0)
     {
-        return $this->connections->get($key);
+        return $this->connections[$key];
     }
 
     /**
