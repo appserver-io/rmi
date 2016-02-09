@@ -1,3 +1,13 @@
+# Version 2.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Add protected cleanUp() method used to re-attach session beans after each call, not only on SessionContext destructor
+
 # Version 1.2.2
 
 ## Bugfixes

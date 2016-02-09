@@ -84,6 +84,17 @@ class ContextSession extends HashMap implements SessionInterface
      */
     public function __destruct()
     {
+        $this->cleanUp();
+    }
+
+    /**
+     * Clean-Up the session context by re-attaching the
+     * session beans to the container.
+     *
+     * @return void
+     */
+    protected function cleanUp()
+    {
 
         // query whether we've beans that has to be re-attached to the container or not
         if ($this->size() > 0) {
@@ -223,6 +234,9 @@ class ContextSession extends HashMap implements SessionInterface
                 $responses[$key]->setSession($this);
             }
         }
+
+        // clean-up the session context
+        $this->cleanUp();
 
         // return the response of the first connection
         return reset($responses);
