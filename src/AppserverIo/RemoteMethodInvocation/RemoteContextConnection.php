@@ -293,7 +293,7 @@ class RemoteContextConnection implements ConnectionInterface
         $context  = stream_context_create($opts);
 
         // invoke a HTTP request and try to read the response from the remote server
-        if ($fp = fopen($this->getBaseUrl($this->getPath()), 'r', false, $context)) {
+        if ($fp = fopen($url = $this->getBaseUrl($this->getPath()), 'r', false, $context)) {
             // initialize the response
             $response = '';
             // read while content is available

@@ -1,3 +1,13 @@
+# Version 2.0.1
+
+## Bugfixes
+
+* Fixed invalid remote URL in error message
+
+## Features
+
+* None
+
 # Version 2.0.0
 
 ## Bugfixes
