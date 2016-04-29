@@ -22,7 +22,7 @@ namespace AppserverIo\RemoteMethodInvocation;
 
 use AppserverIo\Collections\CollectionInterface;
 use AppserverIo\Psr\Application\ApplicationInterface;
-use AppserverIo\Collections\CollectionUtils;
+use AppserverIo\Psr\EnterpriseBeans\BeanContextInterface;
 
 /**
  * Connection implementation to invoke a local method call.
@@ -118,39 +118,7 @@ class LocalContextConnection implements ConnectionInterface
      */
     public function send(RemoteMethodInterface $remoteMethod)
     {
-
-        // prepare method name and parameters and invoke method
-        $className = $remoteMethod->getClassName();
-        $methodName = $remoteMethod->getMethodName();
-        $parameters = $remoteMethod->getParameters();
-        $sessionId = $remoteMethod->getSessionId();
-
-        // try to load the session with the ID passed in the remote method
-        $session = CollectionUtils::find($this->getSessions(), new FilterSessionPredicate($sessionId));
-
-        // query whether the session is available or not
-        if ($session == null) {
-            throw new \Exception(sprintf('Can\'t find session with ID %s', $sessionId));
-        }
-
-        // query whether we already have an instance in the session container
-        if ($instance = $session->exists($className) === false) {
-            // load the application context and the bean manager
-            $application = $this->getApplication();
-
-            // load the bean instance
-            $instance = $application->search($className, array($sessionId, array($application)));
-
-            // load local bean instance from the application
-            $session->add($className, $instance);
-
-        } else {
-            // load the instance from the session container
-            $instance = $session->get($className);
-        }
-
-        // invoke the remote method call on the local instance
-        return call_user_func_array(array($instance, $methodName), $parameters);
+        return $this->getApplication()->search(BeanContextInterface::IDENTIFIER)->invoke($remoteMethod, $this->getSessions());
     }
 
     /**
