@@ -21,6 +21,7 @@
 namespace AppserverIo\RemoteMethodInvocation;
 
 use AppserverIo\Collections\ArrayList;
+use AppserverIo\Psr\EnterpriseBeans\BeanContextInterface;
 
 /**
  * Test implementation for the LocalContextConnectionTest class.
@@ -126,137 +127,39 @@ class LocalContextConnectionTest extends \PHPUnit_Framework_TestCase
     public function testSend()
     {
 
-        // create a mock bean, simulated by an ArrayList
-        $mockBean = $this->getMockBuilder($beanInterface = 'AppserverIo\Collections\ArrayList')
-                         ->setMethods(get_class_methods($beanInterface))
-                         ->getMock();
-
-        // mock the methods
-        $mockBean->expects($this->once())
-                 ->method('size')
-                 ->willReturn(0);
-
         // create a mock remote method
         $mockRemoteMethod = $this->getMockBuilder($interface = 'AppserverIo\RemoteMethodInvocation\RemoteMethodInterface')
                                  ->setMethods(get_class_methods($interface))
                                  ->getMock();
 
-        // mock the methods
-        $mockRemoteMethod->expects($this->once())
-                         ->method('getClassName')
-                         ->willReturn($beanInterface);
-        $mockRemoteMethod->expects($this->once())
-                         ->method('getMethodName')
-                         ->willReturn('size');
-        $mockRemoteMethod->expects($this->once())
-                         ->method('getParameters')
-                         ->willReturn(array());
-        $mockRemoteMethod->expects($this->once())
-                         ->method('getSessionId')
-                         ->willReturn($sessionId = md5(uniqid()));
-
-        // create a mock session
-        $mockSession = $this->getMockBuilder('\AppserverIo\RemoteMethodInvocation\ContextSession')
-                            ->setMethods(array('getSessionId', 'exists', 'get'))
-                            ->disableOriginalConstructor()
-                            ->getMock();
-
-        // mock the methods
-        $mockSession->expects($this->once())
-                    ->method('getSessionId')
-                    ->willReturn($sessionId);
-        $mockSession->expects($this->once())
-                    ->method('exists')
-                    ->willReturn(true);
-        $mockSession->expects($this->once())
-                    ->method('get')
-                    ->willReturn($mockBean);
-
         // create an ArrayList with the mock sessions
-        $sessions = new ArrayList();
-        $sessions->add($mockSession);
+        $mockSessions = $this->getMockBuilder('AppserverIo\Collections\CollectionInterface')
+                             ->getMock();
 
-        // test setter/getter for the session collection
-        $this->contextConnection->injectSessions($sessions);
-
-        // invoke the remote method call
-        $this->contextConnection->send($mockRemoteMethod);
-    }
-
-    /**
-     * Tests the method invocation on the bean invoked by the send() method
-     * and bean instance ALREADY initialized by a prior call.
-     *
-     * @return void
-     */
-    public function testSendWithExistingSession()
-    {
-
-        // create a mock bean, simulated by an ArrayList
-        $mockBean = $this->getMockBuilder($beanInterface = 'AppserverIo\Collections\ArrayList')
-                         ->setMethods(get_class_methods($beanInterface))
-                         ->getMock();
-
-        // mock the methods
-        $mockBean->expects($this->once())
-                 ->method('size')
-                 ->willReturn(0);
-
-        // this is dummy interface provide by this library for testing purposes only
-        $interface = 'AppserverIo\RemoteMethodInvocation\ApplicationAndNamingDirectoryAwareInterface';
-
-        // create a application mock
-        $mockApplication = $this->getMockBuilder($interface)
-                                ->setMethods(get_class_methods($interface))
+        // initialize the mock bean manager
+        $mockBeanManager = $this->getMockBuilder($beanContextInterface = 'AppserverIo\RemoteMethodInvocation\BeanContextWithInvokeInterface')
+                                ->setMethods(get_class_methods($beanContextInterface))
                                 ->getMock();
 
-        // mock the search() call
+        // mock the invoke() method
+        $mockBeanManager->expects($this->once())
+                        ->method('invoke')
+                        ->with($mockRemoteMethod, $mockSessions);
+
+        // initialize the mock application
+        $mockApplication = $this->getMockBuilder($applicationInterface = 'AppserverIo\RemoteMethodInvocation\ApplicationAndNamingDirectoryAwareInterface')
+                                ->setMethods(get_class_methods($applicationInterface))
+                                ->getMock();
+
+        // mock the search method
         $mockApplication->expects($this->once())
                         ->method('search')
-                        ->willReturnOnConsecutiveCalls($mockBean);
-
-        // test setter/getter for the application
-        $this->contextConnection->injectApplication($mockApplication);
-
-        // create a mock remote method
-        $mockRemoteMethod = $this->getMockBuilder($interface = 'AppserverIo\RemoteMethodInvocation\RemoteMethodInterface')
-                                 ->setMethods(get_class_methods($interface))
-                                 ->getMock();
-
-        // mock the methods
-        $mockRemoteMethod->expects($this->once())
-                         ->method('getClassName')
-                         ->willReturn($beanInterface);
-        $mockRemoteMethod->expects($this->once())
-                         ->method('getMethodName')
-                         ->willReturn('size');
-        $mockRemoteMethod->expects($this->once())
-                         ->method('getParameters')
-                         ->willReturn(array());
-        $mockRemoteMethod->expects($this->once())
-                         ->method('getSessionId')
-                         ->willReturn($sessionId = md5(uniqid()));
-
-        // create a mock session
-        $mockSession = $this->getMockBuilder('\AppserverIo\RemoteMethodInvocation\ContextSession')
-                            ->disableOriginalConstructor()
-                            ->setMethods(array('getSessionId', 'exists', 'get', '__destruct'))
-                            ->getMock();
-
-        // mock the methods
-        $mockSession->expects($this->once())
-                    ->method('getSessionId')
-                    ->willReturn($sessionId);
-        $mockSession->expects($this->once())
-                    ->method('exists')
-                    ->willReturn(false);
-
-        // create an ArrayList with the mock sessions
-        $sessions = new ArrayList();
-        $sessions->add($mockSession);
+                        ->with(BeanContextInterface::IDENTIFIER)
+                        ->willReturn($mockBeanManager);
 
         // test setter/getter for the session collection
-        $this->contextConnection->injectSessions($sessions);
+        $this->contextConnection->injectSessions($mockSessions);
+        $this->contextConnection->injectApplication($mockApplication);
 
         // invoke the remote method call
         $this->contextConnection->send($mockRemoteMethod);
