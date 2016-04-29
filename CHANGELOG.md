@@ -1,3 +1,13 @@
+# Version 2.0.2
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Move method invocation to BeanContext::invoke() method
+
 # Version 2.0.1
 
 ## Bugfixes
