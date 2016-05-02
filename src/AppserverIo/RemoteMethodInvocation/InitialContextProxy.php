@@ -38,13 +38,12 @@ class InitialContextProxy extends RemoteProxy
      * Runs a lookup on the container for the class with the
      * passed name.
      *
-     * @param string $className  The class name to run the lookup for
-     * @param string $proxyClass The class name of the proxy to be created
+     * @param string $className The class name to run the lookup for
      *
      * @return \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface The instance
      */
-    public function lookup($className, $proxyClass = 'AppserverIo\RemoteMethodInvocation\RemoteProxy')
+    public function lookup($className)
     {
-        return $proxyClass::__create($className)->__setSession($this->__getSession());
+        return RemoteProxy::__create($className)->__setSession($this->__getSession());
     }
 }
