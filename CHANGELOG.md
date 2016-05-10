@@ -1,3 +1,13 @@
+# Version 2.0.3
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch to latest appserver-io-psr/epb version 2.0
+
 # Version 2.0.2
 
 ## Bugfixes
