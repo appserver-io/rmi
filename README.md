@@ -1,4 +1,4 @@
-# Remote method invokation library implementation
+# Remote method invocation library implementation
 
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/appserver-io/rmi.svg?style=flat-square)](https://packagist.org/packages/appserver-io/rmi) 
