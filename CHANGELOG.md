@@ -1,3 +1,13 @@
+# Version 3.0.0
+
+## Bugfixes
+
+* Removed unnecessary cleanUp() method method because of method invocation is already handle in BeanManager
+
+## Features
+
+* None
+
 # Version 2.0.4
 
 ## Bugfixes
