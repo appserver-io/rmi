@@ -78,46 +78,6 @@ class ContextSession extends HashMap implements SessionInterface
     }
 
     /**
-     * Re-Attaches the beans bound to this session to the container.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        $this->cleanUp();
-    }
-
-    /**
-     * Clean-Up the session context by re-attaching the
-     * session beans to the container.
-     *
-     * @return void
-     */
-    protected function cleanUp()
-    {
-
-        // query whether we've beans that has to be re-attached to the container or not
-        if ($this->size() > 0) {
-            // iterate over all connections to query if the bean has to be re-attached
-            foreach ($this->getConnections() as $connection) {
-                // query whether we've local context connection or not
-                if ($application = $connection->getApplication()) {
-                    // load the bean manager instance from the application
-                    $beanManager = $application->search('BeanContextInterface');
-
-                    // load the session-ID
-                    $sessionId = $this->getSessionId();
-
-                    // attach all beans of this session
-                    foreach ($this->items as $instance) {
-                        $beanManager->attach($instance, $sessionId);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Injects the servlet request to load the session ID, for the remote method call, from.
      *
      * @param \AppserverIo\Psr\Servlet\Http\HttpServletRequestInterface $servletRequest The servlet request instance to inject
@@ -234,9 +194,6 @@ class ContextSession extends HashMap implements SessionInterface
                 $responses[$key]->setSession($this);
             }
         }
-
-        // clean-up the session context
-        $this->cleanUp();
 
         // return the response of the first connection
         return reset($responses);
