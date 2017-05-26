@@ -22,7 +22,6 @@
 namespace AppserverIo\RemoteMethodInvocation;
 
 use AppserverIo\Collections\HashMap;
-use AppserverIo\Psr\Servlet\SessionUtils;
 use AppserverIo\Psr\Servlet\Http\HttpServletRequestInterface;
 
 /**
