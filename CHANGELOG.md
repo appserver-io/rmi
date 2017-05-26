@@ -1,3 +1,13 @@
+# Version 3.1.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Add LocalProxy implementation
+
 # Version 3.0.2
 
 ## Bugfixes
