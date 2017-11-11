@@ -133,16 +133,4 @@ class RemoteProxy implements RemoteObjectInterface
     {
         return $this->__setSession($session)->__getSession()->send($methodCall);
     }
-
-    /**
-     * Factory method to create a new instance of the requested proxy implementation.
-     *
-     * @param string $className The name of the class to create the proxy for
-     *
-     * @return \AppserverIo\RemoteMethodInvocation\RemoteObjectInterface The proxy instance
-     */
-    public static function __create($className)
-    {
-        return new RemoteProxy($className);
-    }
 }
