@@ -1,45 +1,47 @@
 {
-	"name" : "appserver-io/rmi",
-	"description" : "Remote method invocation library implementation",
-	"homepage" : "https://github.com/appserver-io/rmi",
-	"license" : "OSL-3.0",
-	"authors" : [{
-			"name" : "Tim Wagner",
-			"email" : "tw@appserver.io",
-			"homepage" : "https://github.com/wagnert",
-			"role" : "Developer"
-		}, {
-			"name" : "Bernhard Wick",
-			"email" : "bw@appserver.io",
-			"homepage" : "https://github.com/wick-ed",
-			"role" : "Developer"
-		}
-	],
-	"require" : {
-		"php" : ">=5.4.0",
-		"appserver-io-psr/epb" : "~4.0",
-		"appserver-io-psr/socket" : "~1.0",
-		"appserver-io-psr/servlet" : "~3.0",
-		"appserver-io/collections" : "~1.0",
-		"appserver-io-psr/application" : "~1.0"
-	},
-	"require-dev" : {
-		"appserver-io/build" : "~1.0"
-	},
-	"autoload" : {
-		"psr-0" : {
-			"AppserverIo\\RemoteMethodInvocation" : [
-				"src/",
-				"tests/"
-			]
-		}
-	},
-	"support" : {
-		"email" : "tw@appserver.io",
-		"issues" : "https://github.com/appserver-io/rmi/issues",
-		"source" : "https://github.com/appserver-io/rmi"
-	},
-	"keywords" : [
-		"persistence container protocol remote method call remotemethodcall"
-	]
+    "name": "appserver-io/rmi",
+    "description": "Remote method invocation library implementation",
+    "homepage": "https://github.com/appserver-io/rmi",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "Tim Wagner",
+            "email": "tw@appserver.io",
+            "homepage": "https://github.com/wagnert",
+            "role": "Developer"
+        },
+        {
+            "name": "Bernhard Wick",
+            "email": "bw@appserver.io",
+            "homepage": "https://github.com/wick-ed",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "appserver-io-psr/epb": "dev-di as 4.0.0",
+        "appserver-io-psr/socket": "~1.0",
+        "appserver-io-psr/servlet": "dev-di as 3.0.0",
+        "appserver-io/collections": "~1.0",
+        "appserver-io-psr/application": "~1.0"
+    },
+    "require-dev": {
+        "appserver-io/build": "~1.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "AppserverIo\\RemoteMethodInvocation": [
+                "src/",
+                "tests/"
+            ]
+        }
+    },
+    "support": {
+        "email": "tw@appserver.io",
+        "issues": "https://github.com/appserver-io/rmi/issues",
+        "source": "https://github.com/appserver-io/rmi"
+    },
+    "keywords": [
+        "persistence container protocol remote method call remotemethodcall"
+    ]
 }
