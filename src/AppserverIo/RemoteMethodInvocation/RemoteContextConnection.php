@@ -265,9 +265,9 @@ class RemoteContextConnection implements ConnectionInterface
      * @param \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface $remoteMethod The remote method instance
      *
      * @return mixed The response from the container
-     * @see AppserverIo\RemoteMethodInvocation\ConnectionInterface::send()
+     * @see \AppserverIo\RemoteMethodInvocation\ConnectionInterface::send()
      *
-     * @throws \Exception
+     * @throws \Exception Is thrown, if the remote method call cannot be invoked
      */
     public function send(RemoteMethodInterface $remoteMethod)
     {
@@ -282,10 +282,10 @@ class RemoteContextConnection implements ConnectionInterface
 
         // performs the HTTP POST
         $opts = array (
-            'http' => array (
-                'method'  => 'POST',
-                'header'  => 'Content-type: text/plain',
-                'content' => $packed
+            "http" => array (
+                "method"  => "POST",
+                "header"  => sprintf("Content-Type: text/plain\r\nCookie: %s=%s\r\n", SessionInterface::SESSION_NAME, $remoteMethod->getSessionId()),
+                "content" => $packed
             )
         );
 
