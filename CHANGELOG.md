@@ -1,4 +1,4 @@
-# Version 3.1.2
+# Version 3.2.0
 
 ## Bugfixes
 
@@ -6,17 +6,7 @@
 
 ## Features
 
-* Minor Changes
-
-# Version 3.1.1
-
-## Bugfixes
-
-* None
-
-## Features
-
-* Switch to latest appserver-io-psr/epb version
+* Add SessionInterface::SESSION_NAME constant
 
 # Version 3.1.1
 

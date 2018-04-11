@@ -19,14 +19,15 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "appserver-io-psr/epb": "dev-di as 4.0.0",
+        "appserver-io-psr/epb": "~5.0",
         "appserver-io-psr/socket": "~1.0",
-        "appserver-io-psr/servlet": "dev-di as 3.0.0",
+        "appserver-io-psr/servlet": "~3.0",
         "appserver-io/collections": "~1.0",
         "appserver-io-psr/application": "~1.0"
     },
     "require-dev": {
-        "appserver-io/build": "~1.0"
+        "appserver-io/build": "~1.0",
+        "appserver-io-psr/deployment": "~2.0"
     },
     "autoload": {
         "psr-0": {
