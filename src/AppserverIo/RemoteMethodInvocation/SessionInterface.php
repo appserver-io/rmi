@@ -33,6 +33,13 @@ interface SessionInterface
 {
 
     /**
+     * The session name (aka the name of the session cookie to use).
+     *
+     * @var string
+     */
+    const SESSION_NAME = 'appserver-io.remote-method-invocation.session-name';
+
+    /**
      * Returns the ID of the session to use.
      *
      * @return string The session ID

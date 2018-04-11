@@ -1,3 +1,13 @@
+# Version 3.2.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Add SessionInterface::SESSION_NAME constant
+
 # Version 3.1.1
 
 ## Bugfixes

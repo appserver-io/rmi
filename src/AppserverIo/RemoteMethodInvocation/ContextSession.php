@@ -174,7 +174,7 @@ class ContextSession extends HashMap implements SessionInterface
      * @param \AppserverIo\RemoteMethodInvocation\RemoteMethodInterface $remoteMethod The remote method call to invoke
      *
      * @return mixed the method return value
-     * @see AppserverIo\RemoteMethodInvocation\SessionInterface::send()
+     * @see \AppserverIo\RemoteMethodInvocation\SessionInterface::send()
      * @todo Refactor to replace check for 'setSession' method, e. g. check for an interface
      */
     public function send(RemoteMethodInterface $remoteMethod)

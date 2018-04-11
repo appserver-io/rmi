@@ -20,7 +20,7 @@
 
 namespace AppserverIo\RemoteMethodInvocation;
 
-use AppserverIo\Psr\EnterpriseBeans\BeanContextInterface;
+use AppserverIo\Psr\Deployment\DescriptorInterface;
 use AppserverIo\Psr\EnterpriseBeans\Description\SessionBeanDescriptorInterface;
 
 /**
@@ -32,7 +32,7 @@ use AppserverIo\Psr\EnterpriseBeans\Description\SessionBeanDescriptorInterface;
  * @link      https://github.com/appserver-io/rmi
  * @link      http://www.appserver.io
  */
-class LocalProxyTest extends \PHPUnit_Framework_TestCase
+class LocalProxyTest extends \PHPUnit_Framework_TestCase implements DescriptorInterface
 {
 
     /**
@@ -58,8 +58,8 @@ class LocalProxyTest extends \PHPUnit_Framework_TestCase
     {
 
         // initialize a mock bean manager instance
-        $mockBeanManager = $this->getMockBuilder(BeanContextInterface::class)
-                                ->setMethods(get_class_methods(BeanContextInterface::class))
+        $mockBeanManager = $this->getMockBuilder(BeanContextWithAttachInterface::class)
+                                ->setMethods(get_class_methods(BeanContextWithAttachInterface::class))
                                 ->getMock();
 
         // initialize a mock session bean descriptor instance
@@ -102,6 +102,15 @@ class LocalProxyTest extends \PHPUnit_Framework_TestCase
      * @return string The actual class name
      */
     public function doSomething()
+    {
+        return get_class($this);
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \AppserverIo\Psr\Deployment\DescriptorInterface::getDescription()
+     */
+    public function getDescription()
     {
         return get_class($this);
     }
