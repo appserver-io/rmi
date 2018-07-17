@@ -1,3 +1,13 @@
+# Version 3.2.2
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch to appserver-io-psr/epb version 7.0.* + appserver-io-psr/servlet 4.0.*
+
 # Version 3.2.1
 
 ## Bugfixes
